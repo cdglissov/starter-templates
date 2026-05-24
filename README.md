@@ -7,7 +7,7 @@ Copier template for quickly creating a modern Python repository.
 Install Copier, then generate a project:
 
 ```sh
-uvx copier copy gh:cdglissov/python-template my-project
+uvx copier copy gh:cdglissov/starter-templates my-project
 ```
 
 For local testing from this repository:
@@ -21,23 +21,6 @@ Updating your project:
 ```sh
 uvx copier update --defaults
 ```
-
-Code coverage is reported directly in pytest output, both locally and in CI. No external coverage service or repository token is required.
-
-The generated project uses:
-
-- `src/` package layout
-- `uv` for project and dependency management
-- `.python-version` for interpreter selection
-- Ruff for linting and formatting
-- Pyrefly for type checking
-- pytest, pytest-cov, and coverage.py for tests and coverage reports
-- MkDocs Material for fast documentation generation
-- pre-commit hooks
-- GitHub Actions CI and Dependabot
-- GitHub issue and pull request templates
-- a basic security policy
-
 ## Generated Project
 
 After generation:
