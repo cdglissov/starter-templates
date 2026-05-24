@@ -1,0 +1,101 @@
+[project]
+name = "{{ project_slug }}"
+version = "0.1.0"
+description = "{{ project_description }}"
+readme = "README.md"
+authors = [
+    { name = "{{ author_name }}" },
+]
+requires-python = ">={{ python_version }}"
+dependencies = []
+
+[project.scripts]
+{{ project_slug }} = "{{ package_name }}:main"
+
+[build-system]
+requires = ["uv_build>=0.11.16,<0.12"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "coverage-badge>=1.1.2",
+    "coverage[toml]>=7.13.5",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.5.0",
+    "mkdocstrings[python]>=0.27.0",
+    "pymdown-extensions>=10.12",
+    "pre-commit>=4.6.0",
+    "pyrefly>=1.0.0",
+    "pytest>=9.0.3",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.15.13",
+    "notebook>=7.5.6",
+]
+
+[tool.uv]
+default-groups = "all"
+
+[tool.pyrefly]
+project-includes = ["src", "tests"]
+project-excludes = ["**/.[!/.]*"]
+search-path = ["src"]
+site-package-path = [".venv/lib/python{{ python_version }}/site-packages"]
+python-platform = "linux"
+python-version = "{{ python_version }}"
+python-interpreter-path = ".venv/bin/python{{ python_version }}"
+
+[tool.pytest.ini_options]
+addopts = [
+    "-q",
+    "--cov={{ package_name }}",
+    "--cov-report=term-missing",
+]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["{{ package_name }}"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py{{ python_version|replace('.', '') }}"
+
+[tool.ruff.lint]
+select = [
+    "ALL"
+]
+ignore = [
+    "COM812",   # trailing comma conflict
+    "TC006",    # quote cast value
+    "D100",     # document public module
+    "D104",     # Missing docstring in public package
+    "D107",     # document public init
+    "D203",     # blank line before class docstring
+    "D213",     # multi-line summary before class
+    "ERA",      # eradicate todos
+    "FIX002",   # fix todos
+    "TRY003",   # raise vanilla args
+    "TD002",    # missing author in TODO
+    "TD003",    # missing-todo-link
+    "T20",      # pprint and print statement found
+]
+unfixable = []
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = [
+    "S101",    # asserts allowed in tests...
+    "ARG",     # unused function args -> fixtures nevertheless are functionally relevant
+    "FBT",     # don't care about booleans as positional arguments in tests, e.g. via @pytest.mark.parametrize()
+    "PLR2004", # magic value used in comparison
+    "S311",    # standard pseudo-random generators are not suitable for cryptographic purposes
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 120

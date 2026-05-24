@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+
+permissions:
+  contents: read
+
+jobs:
+  verify-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v8.1.0
+        with:
+          python-version: "{{ python_version }}"
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
+
+      - name: Run checks
+        run: |
+          uv sync --locked
+          uv run --no-sync pre-commit run --all-files --show-diff-on-failure
+          uv run --no-sync ruff check .
+          uv run --no-sync ruff format --check .
+          uv run --no-sync pyrefly check
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["{{ python_version }}"]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v8.1.0
+        with:
+          python-version: "${{ '{{' }} matrix.python-version {{ '}}' }}"
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
+
+      - name: Run tests
+        run: |
+          uv sync --locked
+          uv run --no-sync pytest

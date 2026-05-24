@@ -1,0 +1,37 @@
+.PHONY: help bootstrap test lint format-check typecheck docs docs-serve pre-commit check
+
+help: ## Show available targets
+	@awk 'BEGIN {FS = ":.*##"; printf "Usage:\n  make <target>\n\nTargets:\n"} /^[a-zA-Z0-9_-]+:.*##/ {printf "  %-14s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+
+bootstrap: ## Set up the project for local development
+	@if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then \
+		echo "Git repository already initialized."; \
+	else \
+		git init --initial-branch=main; \
+	fi
+	uv sync --upgrade
+	uv run pre-commit install --install-hooks
+	uv run pre-commit autoupdate
+
+test: ## Run all tests
+	uv run pytest
+
+lint: ## Run Ruff linting
+	uv run ruff check .
+
+format-check: ## Check code formatting
+	uv run ruff format --check .
+
+typecheck: ## Run type checking
+	uv run pyrefly check
+
+docs: ## Build project documentation
+	uv run mkdocs build --strict
+
+docs-serve: ## Serve documentation locally
+	uv run mkdocs serve
+
+pre-commit: ## Run all pre-commit hooks
+	uv run pre-commit run --all-files --show-diff-on-failure
+
+check: pre-commit lint format-check typecheck docs test ## Run local validation checks

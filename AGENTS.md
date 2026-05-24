@@ -1,0 +1,1 @@
+Copier template project. OS is Ubuntu. The template resides in `python-project-template`.

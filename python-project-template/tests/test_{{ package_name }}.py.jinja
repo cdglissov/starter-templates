@@ -1,0 +1,12 @@
+import pytest
+
+from {{ package_name }} import main
+
+
+def test_main(capsys: pytest.CaptureFixture[str]) -> None:
+    """Test the command-line entry point."""
+    main()
+
+    captured = capsys.readouterr()
+
+    assert captured.out == "{{ project_name }}\n"

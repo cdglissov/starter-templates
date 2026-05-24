@@ -1,0 +1,45 @@
+_min_copier_version: "9.15"
+_templates_suffix: .jinja
+_subdirectory: "{{ scaffold_type }}"
+
+scaffold_type:
+  type: str
+  help: Template variant to use.
+  choices:
+    - python-project-template
+  default: "python-project-template"
+
+project_name:
+  type: str
+  help: Human-readable project name.
+  default: "Python Project"
+
+project_slug:
+  type: str
+  help: Repository/package distribution name.
+  default: "{{ project_name|lower|replace(' ', '-')|regex_replace('[^a-z0-9_-]', '') }}"
+
+package_name:
+  type: str
+  help: Importable Python package name.
+  default: "{{ project_slug|replace('-', '_') }}"
+
+project_description:
+  type: str
+  help: Short project description.
+  default: "A project."
+
+author_name:
+  type: str
+  help: Author name.
+  default: "cdglissov"
+
+python_version:
+  type: str
+  help: Minimum Python version.
+  default: "3.12"
+
+copyright_year:
+  type: int
+  help: Copyright year used in the generated license.
+  default: 2026
