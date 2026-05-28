@@ -1,0 +1,15 @@
+---
+name: tailor-template
+description: Tailors the template to specific project needs. Use when user asks to customize the template.
+---
+
+Before tailoring the template based on what the user requests, make sure to follow the checklist.
+
+# Checklist
+
+- [ ] **challenge**: make sure that the user request is clear and specific enough to be actionable. If not, ask clarifying questions to get more details.
+- [ ] **plan**: create a step-by-step plan for how to tailor the template. Ask the user to approve it.
+- [ ] **execute**: implement the changes according to the plan, making sure to update documentation and other dependencies accordingly.
+- [ ] **review**: Spawn a sub-agent to provide an unbiased review of the changes to ensure they meet the user's needs and that there are no errors or issues. If necessary, iterate back to step 2 to make adjustments based on feedback.
+
+Skip the checklist if the user request is very straightforward and doesn't require much clarification or planning.

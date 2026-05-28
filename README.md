@@ -28,6 +28,8 @@ make docs
 
 This creates the lockfile, installs dependencies, initializes a Git repository if needed, generates docs, and installs pre-commit hooks and their environments.
 
+Finally, use the attached skills to update the template or tailor it to your use.
+
 # Todos:
 - Create template for vscode workspace backend + frontend design
 - Create template for monorepo (uv workspaces)
