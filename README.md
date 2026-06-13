@@ -15,7 +15,7 @@ Updating your project:
 ```sh
 uvx copier update --defaults
 ```
-## Generated Project
+## Generated Python Project
 
 After generation:
 
@@ -31,7 +31,6 @@ This creates the lockfile, installs dependencies, initializes a Git repository i
 Finally, use the attached skills to update the template or tailor it to your use.
 
 # Todos:
-- Create template for vscode workspace backend + frontend design
 - Create template for monorepo (uv workspaces)
 - Refine current templates
     - Significantly improve doc generation

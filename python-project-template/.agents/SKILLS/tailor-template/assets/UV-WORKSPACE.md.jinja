@@ -1,0 +1,33 @@
+# UV Workspace Monorepo
+
+Use this reference when the user wants a monorepo with multiple packages, such as `backend`, `frontend`, several independent packages, or several independent APIs/Apps.
+
+## Typical layout
+
+```text
+repo/
+  pyproject.toml
+  backend/
+    pyproject.toml
+    src/backend/
+  frontend/
+    pyproject.toml
+    src/frontend/
+```
+
+## Root pyproject.toml
+
+```toml
+[tool.uv.workspace]
+members = ["backend", "frontend"]
+
+[tool.uv.sources]
+backend = { workspace = true }
+frontend = { workspace = true }
+```
+
+## Notes
+- Ask the user abotu their package structure and needs before addings workspace members, unless it is already clear.
+- Add only the workspace members the user actually needs. Ask about requirements if not specified by the user.
+- Start simple; split further only when there is a clear boundary.
+- uv workspaces don't work well with different programming languages, such as Python backend and JavaScript frontend. In that case, suggest a vscode workspace instead.

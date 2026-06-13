@@ -1,0 +1,23 @@
+# VS Code Workspace
+
+Use this reference when the user wants a monorepo-friendly VS code workspace file named `<name>.code-workspace.json`.
+
+## Minimal example
+```json
+{
+    "folders": [
+        {"path": ".", "name": "root"},
+        {"path": "backend", "name": "backend"},
+        {"path": "frontend", "name": "frontend"},
+    ],
+    "settings": {
+        "move/add VS Code repository settings here, they will apply to all folders in the workspace"
+    }
+}
+```
+
+###
+
+- Include only the folders that exist.
+- Keep repo-wide settings in the workspace file when they help all packages.
+- Prefer one shared virtual environment first unless the user asks for separate environments.

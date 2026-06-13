@@ -14,30 +14,41 @@ project_name:
   help: Human-readable project name.
   default: "Python Project"
 
-project_slug:
+project_name:
   type: str
   help: Repository/package distribution name.
-  default: "{{ project_name|lower|replace(' ', '-')|regex_replace('[^a-z0-9_-]', '') }}"
+  default: >-
+    {{ project_name|lower|replace(' ', '-')|regex_replace('[^a-z0-9_-]', '') }}
 
 package_name:
   type: str
-  help: Importable Python package name.
-  default: "{{ project_slug|replace('-', '_') }}"
+  help: Importable package name.
+  default: "{{ project_name|replace('-', '_') }}"
 
 project_description:
   type: str
   help: Short project description.
-  default: "A project."
+  default: "Hello World"
 
 author_name:
   type: str
   help: Author name.
   default: "cdglissov"
+  validator: >-
+    {% if not (author_name | trim) %}
+    Author name cannot be empty.
+    {% endif %}
 
 python_version:
   type: str
   help: Minimum Python version.
+  choices: ["3.10", "3.11", "3.12", "3.13", "3.14"]
   default: "3.12"
+  when: "{{ scaffold_type == 'python-project-template' }}"
+  validator: >-
+    {% if not (python_version | trim) %}
+    Python version cannot be empty.
+    {% endif %}
 
 copyright_year:
   type: int
