@@ -11,14 +11,13 @@ scaffold_type:
 
 project_name:
   type: str
-  help: Human-readable project name.
-  default: "Python Project"
-
-project_name:
-  type: str
-  help: Repository/package distribution name.
+  help: "A valid Python project name."
   default: >-
     {{ project_name|lower|replace(' ', '-')|regex_replace('[^a-z0-9_-]', '') }}
+  validator: >-
+    {% if not (project_name | trim) %}
+    Project name cannot be empty.
+    {% endif %}
 
 package_name:
   type: str
