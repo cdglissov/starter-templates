@@ -1,0 +1,44 @@
+line-length = 100
+target-version = "py312"
+
+[lint]
+select = [
+    "ALL"
+]
+ignore = [
+    "COM812",  # trailing comma conflict
+    "TC006",   # quote cast value
+    "D100",    # document public module
+    "D104",    # Missing docstring in public package
+    "D107",    # document public init
+    "D203",    # blank line before class docstring
+    "D213",    # multi-line summary before class
+    "ERA",     # eradicate todos
+    "FIX002",  # fix todos
+    "TRY003",  # raise vanilla args
+    "TD002",   # missing author in TODO
+    "TD003",   # missing-todo-link
+    "T20",     # pprint and print statement found
+    "S603",    # Allow subprocesses from untrusted
+    "S607",    # Allow yaml load from untrusted
+    "D400",    # Missing punctuation in docstring
+    "D413",    # Blank line after end in docstring
+    "D415",    # Punctuation in docstring
+    "CPY001",  # Copyright notice in header
+]
+unfixable = []
+
+[lint.per-file-ignores]
+"**/tests/*.py" = [
+    "S101",     # asserts allowed in tests...
+    "ARG",      # unused function args -> fixtures nevertheless are functionally relevant
+    "FBT",      # don't care about booleans as positional arguments in tests, e.g. via @pytest.mark.parametrize()
+    "PLR2004",  # magic value used in comparison
+    "S311",     # standard pseudo-random generators are not suitable for cryptographic purposes
+]
+
+[lint.pydocstyle]
+convention = "google"
+
+[lint.pycodestyle]
+max-line-length = 100

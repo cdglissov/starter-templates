@@ -23,19 +23,18 @@ After generation:
 cd my-project
 make bootstrap
 make check
-make docs
 ```
 
 This creates the lockfile, installs dependencies, initializes a Git repository if needed, generates docs, and installs pre-commit hooks and their environments.
 
+Optionally install [apm](https://microsoft.github.io/apm/getting-started/installation/)
+
 Finally, use the attached skills to update the template or tailor it to your use.
 
-# Todos:
-- Create template for monorepo (uv workspaces)
+# TODOs:
+
 - Refine current templates
     - Significantly improve doc generation
     - Add improved workflows
     - Add standardized dockerfile with multistaging and debian base image
-- Integrate praxis agent harness with project setup
-- Simplify third parties
-- Add better telemetry out of the box (OTEL/Improved native logging)
+- Add better telemetry out of the box (Cookiecutter OTEL collector)
