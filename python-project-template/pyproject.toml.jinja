@@ -13,18 +13,18 @@ dependencies = []
 {{ project_name }} = "{{ package_name }}:main"
 
 [build-system]
-requires = ["uv_build>=0.11.16,<0.12"]
+requires = ["uv_build>=0.12.0,<0.13"]
 build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
-    "coverage[toml]>=7.13.5",
-    "prek>=0.4.8",
-    "pyrefly>=1.0.0",
-    "pytest>=9.0.3",
+    "coverage[toml]>=7.16.0",
+    "prek>=0.5.2",
+    "pyrefly>=1.2.0",
+    "pytest>=9.1.1",
     "pytest-cov>=7.1.0",
-    "ruff>=0.15.13",
-    "notebook>=7.5.6",
+    "ruff>=0.16.6",
+    "notebook>=7.6.2",
 ]
 
 [tool.uv]
