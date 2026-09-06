@@ -5,29 +5,30 @@ _subdirectory: "{{ scaffold_type }}"
 scaffold_type:
   type: str
   help: Template variant to use.
+  when: false
   choices:
     - python-project-template
   default: "python-project-template"
 
 project_name:
   type: str
-  help: "A valid Python project name."
-  default: >-
-    {{ project_name|lower|replace(' ', '-')|regex_replace('[^a-z0-9_-]', '') }}
+  default: "my-project"
   validator: >-
     {% if not (project_name | trim) %}
     Project name cannot be empty.
+    {% elif project_name | regex_search('[0-9]') %}
+    Project name cannot contain numbers.
     {% endif %}
 
 package_name:
   type: str
   help: Importable package name.
+  when: false
   default: "{{ project_name|replace('-', '_') }}"
 
 project_description:
   type: str
   help: Short project description.
-  default: "Hello World"
 
 author_name:
   type: str
@@ -53,3 +54,23 @@ copyright_year:
   type: int
   help: Copyright year used in the generated license.
   default: 2026
+
+host_os:
+  type: str
+  help: Operating system name.
+  default: "linux/wsl"
+  choices: ["linux/wsl", "windows"]
+  validator: >-
+    {% if not (host_os | trim) %}
+    OS name cannot be empty.
+    {% endif %}
+
+harness:
+  type: str
+  help: Harness environment.
+  default: "codex"
+  choices: ["codex", "copilot", "claude"]
+  validator: >-
+    {% if not (harness | trim) %}
+    Harness cannot be empty.
+    {% endif %}

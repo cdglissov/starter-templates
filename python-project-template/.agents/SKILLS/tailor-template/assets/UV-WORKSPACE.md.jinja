@@ -27,7 +27,8 @@ frontend = { workspace = true }
 ```
 
 ## Notes
-- Ask the user abotu their package structure and needs before addings workspace members, unless it is already clear.
+- Ask the user about their package structure and needs before adding workspace members, unless it is already clear.
 - Add only the workspace members the user actually needs. Ask about requirements if not specified by the user.
 - Start simple; split further only when there is a clear boundary.
 - uv workspaces don't work well with different programming languages, such as Python backend and JavaScript frontend. In that case, suggest a vscode workspace instead.
+- Add an AGENTS.md to each workspace member.

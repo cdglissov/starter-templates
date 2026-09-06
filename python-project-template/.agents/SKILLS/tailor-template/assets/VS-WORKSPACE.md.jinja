@@ -1,23 +1,32 @@
 # VS Code Workspace
 
-Use this reference when the user wants a monorepo-friendly VS code workspace file named `<name>.code-workspace.json`.
+Use this reference when the user wants a monorepo-friendly VS Code workspace file named `<project-slug>.code-workspace`.
 
-## Minimal example
+To make sure the workspace is as the user desires, do the following:
+
+- Ask the user about their package structure and needs before adding workspace folders, unless it is already clear.
+- Add only the workspace folders the user actually needs. Ask about requirements if not specified by user. Start simple; split further only when there is a clear boundary.
+  - Workspace folders should be independent of each other.
+
+## Minimal example of a typical `<project-slug>.code-workspace` file
+
 ```json
 {
-    "folders": [
-        {"path": ".", "name": "root"},
-        {"path": "backend", "name": "backend"},
-        {"path": "frontend", "name": "frontend"},
-    ],
-    "settings": {
-        "move/add VS Code repository settings here, they will apply to all folders in the workspace"
-    }
+  "folders": [
+    { "path": ".", "name": "root" },
+    { "path": "backend", "name": "backend" },
+    { "path": "frontend", "name": "frontend" }
+  ],
+  "settings": {
+    "add VS Code repository settings here, they will apply to all folders in the workspace"
+  }
 }
 ```
 
-###
+"." is primarily used for the root folder, which is the folder that contains the workspace file. The other folders are typically subfolders of the root folder containing specific parts of the project, such as a backend and frontend. Backend and frontend folders can be used for independent packages, APIs, or apps. The names of the folders are arbitrary and can be changed to whatever the user prefers.
+
+## Notes
 
 - Include only the folders that exist.
-- Keep repo-wide settings in the workspace file when they help all packages.
-- Prefer one shared virtual environment first unless the user asks for separate environments.
+- Keep vscode settings json in the workspace file under the settings key.
+- Add an AGENTS.md to each workspace folder.

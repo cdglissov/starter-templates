@@ -1,0 +1,37 @@
+- This project uses `uv` for dependency management and task execution.
+- The operating system is {{ host_os }}. Python {{ python_version }}.
+- Maintain the AGENTS.md whenever major changes are made to the project.
+- Prefer ASCII-only.
+
+## Repository Layout
+
+```text
+.
+|-- AGENTS.md                         # Instructions for AI coding agents
+|-- README.md                         # Project overview and usage notes
+|-- Makefile                          # Common local development commands
+|-- pyproject.toml                    # Project metadata, dependencies, and tool config
+|-- apm.yml                           # Dependency management of skills and agents
+|-- .env.example                      # Example environment variables
+|-- .pre-commit-config.yaml           # Pre-commit hook configuration
+|-- .github/                          # Pull request, issue, Dependabot, and CI config
+|-- .vscode/                          # Recommended editor settings and extensions
+|-- .agents/skills/                   # Project-specific agent skills
+|-- scripts/pre-commit-hooks/         # Local pre-commit hook scripts
+|-- src/{{ package_name }}/           # Application package
+`-- tests/                             # Pytest test suite
+```
+
+## Evaluation
+
+Run these checks before handing off code changes:
+
+```sh
+uv run pytest
+uv run ruff check .
+uv run ruff format --check .
+uv run pyrefly check
+uv run prek run --all-files --show-diff-on-failure
+```
+
+Feel free to narrow the scope of the checks to only the files that were changed.

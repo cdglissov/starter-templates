@@ -1,4 +1,4 @@
-.PHONY: help bootstrap test lint format-check typecheck docs docs-serve pre-commit check
+.PHONY: help bootstrap test lint format-check typecheck pre-commit check
 
 help: ## Show available targets
 	@awk 'BEGIN {FS = ":.*##"; printf "Usage:\n  make <target>\n\nTargets:\n"} /^[a-zA-Z0-9_-]+:.*##/ {printf "  %-14s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -10,8 +10,15 @@ bootstrap: ## Set up the project for local development
 		git init --initial-branch=main; \
 	fi
 	uv sync --upgrade
-	uv run pre-commit install --install-hooks
-	uv run pre-commit autoupdate
+	uv run prek autoupdate --cooldown-days 7 \
+		--include-tag '*.*.*' \
+		--include-tag '*.*' \
+		--exclude-tag '*.*.*-*' \
+		--exclude-tag '*.*.*.dev*' \
+		--exclude-tag '*.*.*a*' \
+		--exclude-tag '*.*.*b*' \
+		--exclude-tag '*.*.*rc*'
+	uv run prek install --install-hooks
 
 test: ## Run all tests
 	uv run pytest
@@ -25,13 +32,7 @@ format-check: ## Check code formatting
 typecheck: ## Run type checking
 	uv run pyrefly check
 
-docs: ## Build project documentation
-	uv run mkdocs build --strict
-
-docs-serve: ## Serve documentation locally
-	uv run mkdocs serve
-
 pre-commit: ## Run all pre-commit hooks
-	uv run pre-commit run --all-files --show-diff-on-failure
+	uv run prek run --all-files --show-diff-on-failure
 
-check: pre-commit lint format-check typecheck docs test ## Run local validation checks
+check: pre-commit lint format-check typecheck test ## Run local validation checks
