@@ -9,4 +9,4 @@ def test_main(capsys: pytest.CaptureFixture[str]) -> None:
 
     captured = capsys.readouterr()
 
-    assert captured.out == "{{ project_name }}\n"
+    assert captured.out == "{{ project_name }}\n\n"
